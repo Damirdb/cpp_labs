@@ -1,66 +1,64 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+##include <iostream>
+#include <fstream>
+#include <string>
 
-
-char* saveGets(char* buffer, int n, FILE* fp) {
-    char* res = fgets(buffer, n, fp);
-    int len = strlen(buffer);
-    if (buffer[len - 1] == '\n') {
-        buffer[len - 1] = '\0';
+std::string saveGets(char* buffer, int n, std::ifstream& fp) {
+    fp.getline(buffer, n);
+    std::string res(buffer);
+    if (!res.empty() && res.back() == '\n') {
+        res.pop_back();
     } else {
-        fflush(fp);
+        fp.clear(); 
     }
     return res;
 }
 
 
-typedef struct IntercityBus_ {
-    int number;
-    char departure[30];
-    char destination[30];
-    char departure_time[20];
-    char arrival_time[20];
-} IntercityBus;
+
+struct Clubs {
+    std::string name;
+    std::string adress;
+    std::string type;
+    std::string open_time;
+    std::string close_time;
+};
 
 
-void inputBus(IntercityBus* bus) {
-    printf("Номер -> ");
-    scanf("%d", &bus->number);
-    fflush(stdin);
-    printf("Отправление -> ");
-    saveGets(bus->departure, 30, stdin);
-    printf("Время отправления -> ");
-    saveGets(bus->departure_time, 20, stdin);
-    printf("Место назначения -> ");
-    saveGets(bus->destination, 30, stdin);
-    printf("Время прибытия -> ");
-    saveGets(bus->arrival_time, 20, stdin);
+
+void inputClub(Clubs* club) {
+    std::cout << "Название -> ";
+    std::getline(std::cin, club->name);
+    std::cout << "Адрес -> ";
+    std::getline(std::cin, club->adress);
+    std::cout << "Время открытия -> ";
+    std::getline(std::cin, club->open_time);
+    std::cout << "Тип вечеринки -> ";
+    std::getline(std::cin, club->type);
+    std::cout << "Время закрытия -> ";
+    std::getline(std::cin, club->close_time);
 }
-
 
 void printMenu() {
-    printf("1. Добавить запись\n");
-    printf("2. Удалить запись\n");
-    printf("3. Показать все записи\n");
-    printf("4. Показать назначение записей\n");
-    printf("0. Выход\n");
-    printf("-> ");
+    std::cout << "1. Добавить запись\n";
+    std::cout << "2. Удалить запись\n";
+    std::cout << "3. Показать все записи\n";
+    std::cout << "4. Показать назначение записей\n";
+    std::cout << "0. Выход\n";
+    std::cout << "-> ";
 }
 
 
-int addBus(IntercityBus* buses, int n) {
-    printf("\nВвод информации о автобусе\n");
-    inputBus(buses + n);
-    printf("\nДобавлена запись\n\n");
+int addClub(Clubs* clubs, int n) {
+    std::cout << "Ввод информации о клубе ";
+    cin >> clubs[n];
+    std::cout << "Добавлена запись\n";
     return n + 1;
 }
 
 
-int deleteBus(IntercityBus* buses, int n) {
+int deleteBus(club* clubs, int n) {
     if (n == 0) {
-        printf("\nСписок автобусов пуст!\n\n");
+        std::cout << "\nСписок автобусов пуст!\n\n";
         return n;
     }
     int index, i;
@@ -187,4 +185,4 @@ int main() {
     } while (command != 0);
 
     return 0;
-} 9 variant
+}
