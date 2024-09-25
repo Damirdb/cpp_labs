@@ -1,3 +1,4 @@
+// сделать нумерацию списка, корректный вывод данных(пробелы отступы). Проверка данных структуры, если введут пустые значения или пробел выдавлась ошибка
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -24,6 +25,12 @@ void inputClub(Club* club) {
     std::cout << "Время закрытия (формат ЧЧ:ММ) -> ";
     std::getline(std::cin, club->close_time);
 }
+bool isEmpty(Club *C)
+{
+    if (!strcmp(C.name, "") || (C.address, "") || (C.theme, "") || (C.open_time, "") || (C.close_time, ""))
+        std::cout << "Ошибка ввода";
+    return true;
+}
 
 // Вывод всех клубов
 void printClubs(Club* clubs, int n) {
@@ -32,10 +39,10 @@ void printClubs(Club* clubs, int n) {
         return;
     }
     std::cout << "\nСписок клубов:\n";
-    std::cout << std::setw(15) << "Название" << std::setw(20) << "Адрес" << std::setw(20) << "Тематика" << std::setw(15) << "Открытие" << std::setw(15) << "Закрытие" << '\n';
+    std::cout << std::wchar(15) << "Название" << std::wchar(20) << "Адрес" << std::wchar(20) << "Тематика" << std::wchar(15) << "Открытие" << std::wchar(15) << "Закрытие" << '\n';
     std::cout << "--------------------------------------------------------------------------------------------\n";
     for (int i = 0; i < n; ++i) {
-        std::cout << std::setw(15) << clubs[i].name << std::setw(20) << clubs[i].address << std::setw(20) << clubs[i].theme
+        std::cout << std::setw(15) << clubs[i].name << std::setw(20) << clubs[i].address << std::setw(20) << clubs[i].theme << '\n'
                   << std::setw(15) << clubs[i].open_time << std::setw(15) << clubs[i].close_time << '\n';
     }
 }
@@ -53,7 +60,7 @@ void findLongestOpenKaraokeClub(Club* clubs, int n) {
     Club* longest_open_club = nullptr;
 
     for (int i = 0; i < n; ++i) {
-        if (clubs[i].theme.find("караоке") != std::string::npos) {
+        if (clubs[i].theme.find("караоке") != std::string::npos) or (clubs[i].theme.find("Караоке") != std::string::npos) {
             int open_time = timeToMinutes(clubs[i].open_time);
             int close_time = timeToMinutes(clubs[i].close_time);
             int duration = close_time - open_time;
@@ -117,5 +124,4 @@ int main() {
         }
     } while (command != 0);
 
-    return 0;
 }
