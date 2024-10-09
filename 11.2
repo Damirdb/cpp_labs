@@ -97,18 +97,18 @@ void printClubs(Club* clubs, int n) {
 
     std::cout << "\nСписок клубов:\n";
     std::cout << std::setw(5) << "№"
-              << std::setw(25) << "Название"
-              << std::setw(35) << "Адрес"
-              << std::setw(30) << "Тематика"
-              << std::setw(15) << "Открытие"
-              << std::setw(15) << "Закрытие" << '\n';
+              << std::setw(20) << "Название"
+              << std::setw(15) << "Адрес"
+              << std::setw(25) << "Тематика"
+              << std::setw(25) << "Открытие "
+              << std::setw(25) << "Закрытие" << '\n';
     std::cout << "--------------------------------------------------------------------------------------------------------------\n";
 
     for (int i = 0; i < n; ++i) {
-        std::cout << std::setw(5) << i + 1
-                  << std::setw(25) << clubs[i].name
-                  << std::setw(35) << clubs[i].address
-                  << std::setw(30) << clubs[i].theme
+        std::cout << std::setw(3) << i + 1
+                  << std::setw(15) << clubs[i].name
+                  << std::setw(20) << clubs[i].address
+                  << std::setw(20) << clubs[i].theme
                   << std::setw(15) << clubs[i].open_time.toString()
                   << std::setw(15) << clubs[i].close_time.toString() << '\n';
     }
