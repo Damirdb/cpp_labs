@@ -18,7 +18,9 @@ public:
     int minutes;
 
     // Конструкторы
-    Time(int h = 0, int m = 0) : hours(h), minutes(m) {}
+    Time() : hours(0), minutes(0) {}  // По умолчанию
+    Time(int h, int m) : hours(h), minutes(m) {}  // С параметрами
+    Time(const Time& other) : hours(other.hours), minutes(other.minutes) {}  // Копирующий
 
     Time(const std::string& timeStr) {  // Конструктор, принимающий строку
         hours = std::stoi(timeStr.substr(0, 2));
@@ -54,10 +56,11 @@ public:
     Time close_time;
 
     // Конструкторы
-    Club() {}
-
+    Club() {}  // По умолчанию
     Club(const std::string& name, const std::string& address, const std::string& theme, const Time& open_time, const Time& close_time) 
-        : name(name), address(address), theme(theme), open_time(open_time), close_time(close_time) {}
+        : name(name), address(address), theme(theme), open_time(open_time), close_time(close_time) {}  // С параметрами
+    Club(const Club& other)  // Копирующий
+        : name(other.name), address(other.address), theme(other.theme), open_time(other.open_time), close_time(other.close_time) {}
 
     // Ввод данных о клубе с использованием std::cin
     void input() {
