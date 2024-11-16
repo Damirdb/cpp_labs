@@ -18,7 +18,7 @@ public:
     int minutes;
 
     // Конструкторы
-    Time(int h = 0, int m = 0) : hours(h), minutes(m) {}  // Конструктор по умолчанию и с параметрами
+    Time(int h = 0, int m = 0) : hours(h), minutes(m) {}
 
     Time(const std::string& timeStr) {  // Конструктор, принимающий строку
         hours = std::stoi(timeStr.substr(0, 2));
@@ -54,30 +54,27 @@ public:
     Time close_time;
 
     // Конструкторы
-    Club() {}  // Конструктор по умолчанию
+    Club() {}
 
     Club(const std::string& name, const std::string& address, const std::string& theme, const Time& open_time, const Time& close_time) 
-        : name(name), address(address), theme(theme), open_time(open_time), close_time(close_time) {}  // Полный конструктор
-
-    Club(const std::string& name, const std::string& address, const std::string& theme) 
-        : name(name), address(address), theme(theme), open_time(0, 0), close_time(0, 0) {}  // Конструктор с временем по умолчанию
+        : name(name), address(address), theme(theme), open_time(open_time), close_time(close_time) {}
 
     // Ввод данных о клубе с использованием std::cin
     void input() {
         std::cout << "Название клуба -> ";
         std::cin.ignore();  // Игнорируем символ новой строки после выбора меню
         std::getline(std::cin, name);
-        
+
         std::cout << "Адрес клуба -> ";
         std::getline(std::cin, address);
-        
+
         std::cout << "Тематика клуба (например, караоке, живая музыка) -> ";
         std::getline(std::cin, theme);
-        
+
         std::string openTimeStr, closeTimeStr;
         std::cout << "Время открытия (формат ЧЧ:ММ) -> ";
         std::getline(std::cin, openTimeStr);
-        open_time = Time(openTimeStr);  // Используем конструктор Time для преобразования строки
+        open_time = Time(openTimeStr);
 
         std::cout << "Время закрытия (формат ЧЧ:ММ) -> ";
         std::getline(std::cin, closeTimeStr);
@@ -95,19 +92,48 @@ void printClubs(Club* clubs, int n) {
     std::cout << "\nСписок клубов:\n";
     std::cout << std::setw(5) << "№"
               << std::setw(25) << "Название"
-              << std::setw(30) << "Адрес"
-              << std::setw(25) << "Тематика"
-              << std::setw(15) << "Открытие"
-              << std::setw(15) << "Закрытие" << '\n';
-    std::cout << "-------------------------------------------------------------------------------------------------\n";
+              << std::setw(25) << "Адрес"
+              << std::setw(30) << "Тематика"
+              << std::setw(20) << "Открытие"
+              << std::setw(20) << "Закрытие" << '\n';
+    std::cout << std::string(100, '-') << std::endl;
 
     for (int i = 0; i < n; ++i) {
         std::cout << std::setw(3) << i + 1
-                  << std::setw(25) << clubs[i].name
-                  << std::setw(30) << clubs[i].address
-                  << std::setw(25) << clubs[i].theme
-                  << std::setw(15) << clubs[i].open_time.toString()
-                  << std::setw(15) << clubs[i].close_time.toString() << '\n';
+                  << std::setw(20) << clubs[i].name
+                  << std::setw(20) << clubs[i].address
+                  << std::setw(20) << clubs[i].theme
+                  << std::setw(10) << clubs[i].open_time.toString()
+                  << std::setw(10) << clubs[i].close_time.toString() << '\n';
+    }
+}
+
+// Функция для поиска клуба с караоке, который работает дольше всех
+void findLongestKaraokeClub(Club* clubs, int n) {
+    int maxDuration = -1;
+    int index = -1;
+
+    for (int i = 0; i < n; ++i) {
+        if (clubs[i].theme == "караоке" || clubs[i].theme == "Караоке") {
+            int duration = clubs[i].open_time.duration(clubs[i].close_time);
+            if (duration > maxDuration) {
+                maxDuration = duration;
+                index = i;
+            }
+        }
+    }
+
+    if (index != -1) {
+        std::cout << "\nКлуб с караоке, который работает дольше всех:\n";
+        std::cout << std::setw(25) << "Название"
+                  << std::setw(30) << "Адрес"
+                  << std::setw(10) << "Часы работы\n";
+        std::cout << std::string(65, '-') << std::endl;
+        std::cout << std::setw(25) << clubs[index].name
+                  << std::setw(30) << clubs[index].address
+                  << maxDuration / 60 << " ч " << maxDuration % 60 << " мин\n";
+    } else {
+        std::cout << "\nКлубы с караоке не найдены.\n";
     }
 }
 
@@ -130,11 +156,10 @@ int main() {
     do {
         printMenu();
         std::cin >> command;
-        std::cin.ignore();
 
         switch (command) {
             case 1:
-                if (nclubs < 128) { // Предотвращаем переполнение массива
+                if (nclubs < 128) {
                     std::cout << "\nДобавление нового клуба:\n";
                     clubs[nclubs].input();
                     nclubs++;
@@ -146,13 +171,13 @@ int main() {
                 printClubs(clubs, nclubs);
                 break;
             case 3:
-                // Здесь будет функция поиска клуба с караоке, который работает дольше всех
+                findLongestKaraokeClub(clubs, nclubs);
                 break;
             case 0:
                 std::cout << "\nДо свидания!\n";
                 break;
             default:
-                std::cout << "\nНеверная команда! Пожалуйста, попробуйте снова.\n";
+                std::cout << "\nНеверная команда! Попробуйте снова.\n";
                 break;
         }
     } while (command != 0);
