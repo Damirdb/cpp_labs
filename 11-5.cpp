@@ -1,15 +1,16 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <windows.h>
+// #include <windows.h>
 #include <locale>
 
-// Установка кодировки консоли для корректного отображения кириллицы
+/* Установка кодировки консоли для корректного отображения кириллицы
 void setupConsole() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     setlocale(LC_ALL, "ru_RU.UTF-8");
 }
+ */
 
 // Класс для времени (ЧЧ:ММ)
 class Time {
@@ -88,8 +89,8 @@ void printClubs(Club* clubs, int n) {
     std::cout << "\nСписок клубов:\n";
     std::cout << std::setw(5) << "№"
               << std::setw(25) << "Название"
-              << std::setw(25) << "Адрес"
-              << std::setw(30) << "Тематика"
+              << std::setw(20) << "Адрес"
+              << std::setw(25) << "Тематика"
               << std::setw(20) << "Открытие"
               << std::setw(20) << "Закрытие" << '\n';
     std::cout << std::string(100, '-') << std::endl;
@@ -97,9 +98,9 @@ void printClubs(Club* clubs, int n) {
     for (int i = 0; i < n; ++i) {
         std::cout << std::setw(3) << i + 1
                   << std::setw(20) << clubs[i].getName()
-                  << std::setw(20) << clubs[i].getAddress()
+                  << std::setw(22) << clubs[i].getAddress()
                   << std::setw(20) << clubs[i].getTheme()
-                  << std::setw(10) << clubs[i].getOpenTime().toString()
+                  << std::setw(12) << clubs[i].getOpenTime().toString()
                   << std::setw(10) << clubs[i].getCloseTime().toString() << '\n';
     }
 }
@@ -120,13 +121,13 @@ void findLongestKaraokeClub(Club* clubs, int n) {
 
     if (index != -1) {
         std::cout << "\nКлуб с караоке, который работает дольше всех:\n";
-        std::cout << std::setw(25) << "Название"
-                  << std::setw(30) << "Адрес"
-                  << std::setw(10) << "Часы работы\n";
+        std::cout << std::setw(15) << "Название"
+                  << std::setw(25) << "Адрес"
+                  << std::setw(30) << "Часы работы\n";
         std::cout << std::string(65, '-') << std::endl;
-        std::cout << std::setw(25) << clubs[index].getName()
-                  << std::setw(30) << clubs[index].getAddress()
-                  << maxDuration / 60 << " ч " << maxDuration % 60 << " мин\n";
+        std::cout << std::setw(15) << clubs[index].getName()
+                  << std::setw(25) << clubs[index].getAddress()
+                  << std::setw(15) << maxDuration / 60 << " ч " << maxDuration % 60 << " мин\n";
     } else {
         std::cout << "\nКлубы с караоке не найдены.\n";
     }
@@ -142,7 +143,7 @@ void printMenu() {
 }
 
 int main() {
-    setupConsole();  // Установка кодировки для Windows
+   // setupConsole();  // Установка кодировки для Windows
 
     Club clubs[128];
     int nclubs = 0;
