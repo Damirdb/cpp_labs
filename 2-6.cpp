@@ -1,3 +1,5 @@
+// для 3 лабы реализовть перегрузку
+
 #include <iostream>
 #include <string>
 #include <iomanip>
