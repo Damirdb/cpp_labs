@@ -98,11 +98,11 @@ public:
               << std::setw(20) << "Открытие"
               << std::setw(20) << "Закрытие" << '\n';
         std::cout << std::string(100, '-') << std::endl;
-        std::cout << std::setw(15) << name
-                  << std::setw(20) << address
+        std::cout << std::setw(20) << name
+                  << std::setw(22) << address
                   << std::setw(15) << theme
                   << std::setw(10) << openTime.toString()
-                  << std::setw(10) << closeTime.toString() << '\n';
+                  << std::setw(12) << closeTime.toString() << '\n';
     }
 
     std::string getTheme() const { return theme; }
