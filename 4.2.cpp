@@ -91,6 +91,13 @@ public:
     }
 
     virtual void print() const {
+        std::cout << std::setw(5) << "№"
+              << std::setw(25) << "Название"
+              << std::setw(20) << "Адрес"
+              << std::setw(25) << "Тематика"
+              << std::setw(20) << "Открытие"
+              << std::setw(20) << "Закрытие" << '\n';
+        std::cout << std::string(100, '-') << std::endl;
         std::cout << std::setw(15) << name
                   << std::setw(20) << address
                   << std::setw(15) << theme
