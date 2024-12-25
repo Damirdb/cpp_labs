@@ -1,0 +1,62 @@
+@startuml
+skin rose
+
+class Time {
+  - int h
+  - int m
+  + Time()
+  + Time(int hours, int minutes)
+  + void input()
+  + string toString() const
+  + int duration(const Time& close) const
+}
+
+class TimeHelper {
+  + static void printTimeDifference(const Time& t1, const Time& t2)
+}
+
+class Club {
+  - string name
+  - string address
+  - string theme
+  - Time openTime
+  - Time closeTime
+  + Club()
+  + Club(string n, string a, string t, Time open, Time close)
+  + virtual void input()
+  + virtual void print() const
+  + string getTheme() const
+  + Time getOpenTime() const
+  + Time getCloseTime() const
+  ~ virtual ~Club()
+}
+
+class KaraokeClub {
+  - int rooms
+  + KaraokeClub()
+  + KaraokeClub(string n, string a, Time open, Time close, int r)
+  + void input() override
+  + void print() const override
+}
+
+class DanceClub {
+  - int maxCapacity
+  + DanceClub()
+  + DanceClub(string n, string a, Time open, Time close, int cap)
+  + void input() override
+  + void print() const override
+}
+
+class VIPKaraokeClub {
+  - bool hasPrivateRooms
+  + VIPKaraokeClub()
+  + VIPKaraokeClub(string n, string a, Time open, Time close, int r, bool priv)
+  + void input() override
+  + void print() const override
+}
+
+TimeHelper --> Time : friend
+Club <|-- KaraokeClub
+Club <|-- DanceClub
+KaraokeClub <|-- VIPKaraokeClub
+@enduml
