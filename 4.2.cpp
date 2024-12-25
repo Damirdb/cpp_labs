@@ -113,7 +113,8 @@ public:
 };
 
 // Наследник Клуба: Караоке
-class KaraokeClub : public Club {
+class KaraokeClub : public Club 
+{
     int rooms;
 
 public:
